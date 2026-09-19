@@ -1,0 +1,3 @@
+file 'seg_lgd_sf.mp4'
+file 'seg_lgd_digger.mp4'
+file 'seg_lgd_dune.mp4'
