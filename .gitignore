@@ -1,0 +1,8 @@
+# Assembled by build_tpl.sh from src/page3.tpl and the deck fragments.
+final3.html
+*.pre*.tpl
+*.preopt.*
+# scratch from image/video processing
+*.gray
+*.rgb
+.DS_Store
