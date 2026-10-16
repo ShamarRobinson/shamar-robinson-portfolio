@@ -109,7 +109,7 @@ DEFER = """
 # others; swap it for an absolute URL once the site has its final domain.
 m = re.search(r'<figure class="portrait"[^>]*>\s*<img[^>]+src="(assets/[^"]+)"', out)
 if m:
-    og = '<meta property="og:image" content="%s">\n' % m.group(1)
+    og = '<meta property="og:image" content="https://shamarrobinson.github.io/shamar-robinson-portfolio/%s">\n' % m.group(1)
     out = out.replace('<meta property="og:type"', og + '<meta property="og:type"', 1)
     print('og:image -> %s' % m.group(1))
 

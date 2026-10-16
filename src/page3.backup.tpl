@@ -5,6 +5,7 @@
 <title>Shamar Robinson</title>
 <meta name="description" content="I make complicated information accurate, clear and on time — then put it in front of the people who decide.">
 <meta name="theme-color" content="#05203A">
+<meta property="og:url" content="https://shamarrobinson.github.io/shamar-robinson-portfolio/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Shamar Robinson">
 <meta property="og:description" content="I make complicated information accurate, clear and on time — then put it in front of the people who decide.">
