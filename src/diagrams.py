@@ -154,41 +154,57 @@ def rights():
 
 # ---------------------------------------------------------------- 4. workflow
 def workflow():
+    """The abstract lifecycle as it is actually tracked: five states, not four.
+    A ticket carries the title from preparation through to set-up, and each
+    hand-off is a status change with a named preparer, reviewer and approver."""
     A = '#5F44A8'
-    s = HEAD('A document routed from ticket to review to signature to file', 'D',
-             'TICKET &#8594; REVIEW &#8594; SIGN &#8594; FILE', A)
-    xs = [50, 120, 190, 260]
-    s += '<line x1="50" y1="86" x2="260" y2="86" stroke="%s" stroke-width="1.3" stroke-dasharray="3 4"/>' % LINE
+    s = HEAD('An abstract tracked from preparation through review, approval, issuance and set-up', 'D',
+             'PREPARE &#8594; REVIEW &#8594; APPROVE &#8594; ISSUE &#8594; SET UP', A)
+    xs = [44, 104, 164, 224, 284]
+    s += '<line x1="44" y1="86" x2="284" y2="86" stroke="%s" stroke-width="1.3" stroke-dasharray="3 4"/>' % LINE
     for i, x in enumerate(xs):
-        s += ('<rect x="%d" y="64" width="44" height="44" rx="9" fill="#FFFFFF" '
-              'stroke="%s" stroke-width="1.3" transform="translate(-22,0)"/>') % (x, LINE)
-        s += ('<rect x="%d" y="64" width="44" height="44" rx="9" fill="none" stroke="%s" '
-              'stroke-width="2" transform="translate(-22,0)" opacity="0">'
-              '<animate attributeName="opacity" values="0;1;1;0;0" dur="6s" begin="%ss" '
-              'keyTimes="0;.06;.2;.3;1" repeatCount="indefinite"/></rect>') % (x, A, i*1.5)
-    s += (_cell(42, 76, 16, 3, INK, .6, 1.5) + _cell(42, 83, 11, 3, INK, .38, 1.5)
-          + _cell(42, 90, 14, 3, INK, .38, 1.5))
-    s += ('<circle cx="119" cy="84" r="8.5" fill="none" stroke="%s" stroke-width="1.8"/>'
-          '<path d="M125 90 L131 96" stroke="%s" stroke-width="2" stroke-linecap="round"/>') % (INK2, INK2)
-    s += ('<path d="M178 94 C184 84 188 96 194 86 C198 80 201 84 204 82" fill="none" '
-          'stroke="%s" stroke-width="2" stroke-linecap="round" stroke-dasharray="46" stroke-dashoffset="46">'
-          '<animate attributeName="stroke-dashoffset" values="46;46;0;0;46" dur="6s" begin="3s" '
-          'keyTimes="0;.05;.25;.8;1" repeatCount="indefinite"/></path>') % A
-    s += ('<path d="M250 76 h20 v20 h-20 z" fill="none" stroke="%s" stroke-width="1.5"/>'
-          '<path d="M254 86 l4.5 5 L267 80" fill="none" stroke="%s" stroke-width="2.4" '
-          'stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="22" stroke-dashoffset="22">'
-          '<animate attributeName="stroke-dashoffset" values="22;22;0;0;22" dur="6s" begin="4.5s" '
-          'keyTimes="0;.04;.16;.9;1" repeatCount="indefinite"/></path>') % (INK3, A)
+        s += ('<rect x="%d" y="66" width="40" height="40" rx="9" fill="#FFFFFF" '
+              'stroke="%s" stroke-width="1.3" transform="translate(-20,0)"/>') % (x, LINE)
+        s += ('<rect x="%d" y="66" width="40" height="40" rx="9" fill="none" stroke="%s" '
+              'stroke-width="2" transform="translate(-20,0)" opacity="0">'
+              '<animate attributeName="opacity" values="0;1;1;0;0" dur="7.5s" begin="%ss" '
+              'keyTimes="0;.05;.17;.26;1" repeatCount="indefinite"/></rect>') % (x, A, i*1.5)
+    # prepare: a page being written
+    s += (_cell(36, 76, 16, 3, INK, .6, 1.5) + _cell(36, 83, 11, 3, INK, .38, 1.5)
+          + _cell(36, 90, 14, 3, INK, .38, 1.5))
+    # review: a magnifier over the page
+    s += ('<circle cx="102" cy="84" r="8" fill="none" stroke="%s" stroke-width="1.8"/>'
+          '<path d="M108 90 L113 95" stroke="%s" stroke-width="2" stroke-linecap="round"/>') % (INK2, INK2)
+    # approve: a tick drawn by the approver
+    s += ('<path d="M155 86 l5 5.5 L174 77" fill="none" stroke="%s" stroke-width="2.6" '
+          'stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="28" stroke-dashoffset="28">'
+          '<animate attributeName="stroke-dashoffset" values="28;28;0;0;28" dur="7.5s" begin="3s" '
+          'keyTimes="0;.04;.2;.85;1" repeatCount="indefinite"/></path>') % A
+    # issue: the package leaving for distribution
+    s += ('<path d="M214 78 h20 v16 h-20 z" fill="none" stroke="%s" stroke-width="1.4"/>'
+          '<path d="M214 78 l10 9 l10 -9" fill="none" stroke="%s" stroke-width="1.4"/>'
+          '<path d="M232 70 l8 0 l0 8" fill="none" stroke="%s" stroke-width="2" '
+          'stroke-linecap="round" stroke-linejoin="round" opacity="0">'
+          '<animate attributeName="opacity" values="0;0;1;1;0" dur="7.5s" begin="4.5s" '
+          'keyTimes="0;.04;.14;.85;1" repeatCount="indefinite"/></path>') % (INK3, INK3, A)
+    # set up: the record standing in the system
+    for r in range(3):
+        s += _cell(272, 74 + r*9, 24, 6, A if r == 0 else INK, .85 if r == 0 else .22, 1.5)
+    # the ticket itself travelling the line
     s += ('<g><rect x="-6" y="-8" width="12" height="16" rx="2" fill="#FFFFFF" stroke="%s" stroke-width="1"/>'
           '<rect x="-3.5" y="-4.5" width="7" height="1.6" fill="%s" opacity=".5"/>'
           '<rect x="-3.5" y="-1" width="7" height="1.6" fill="%s" opacity=".5"/>'
           '<rect x="-3.5" y="2.5" width="5" height="1.6" fill="%s" opacity=".5"/>'
-          '<animateMotion dur="6s" repeatCount="indefinite" path="M50 86 L120 86 L190 86 L260 86" '
-          'keyPoints="0;0;.333;.333;.667;.667;1;1" keyTimes="0;.08;.22;.42;.56;.75;.88;1" calcMode="linear"/>'
+          '<animateMotion dur="7.5s" repeatCount="indefinite" '
+          'path="M44 86 L104 86 L164 86 L224 86 L284 86" '
+          'keyPoints="0;0;.25;.25;.5;.5;.75;.75;1;1" '
+          'keyTimes="0;.06;.17;.32;.43;.57;.68;.8;.9;1" calcMode="linear"/>'
           '</g>') % (A, INK, INK, INK)
-    for i, lab in enumerate(['JIRA', 'REVIEW', 'SIGN', 'FILED']):
-        s += ('<text x="%d" y="126" text-anchor="middle" font-family="monospace" font-size="7.4" '
+    for i, lab in enumerate(['PREPARE', 'REVIEW', 'APPROVE', 'ISSUE', 'SET UP']):
+        s += ('<text x="%d" y="126" text-anchor="middle" font-family="monospace" font-size="6.8" '
               'fill="%s">%s</text>') % (xs[i], INK3, lab)
+    s += ('<text x="44" y="146" font-family="monospace" font-size="7" fill="%s">'
+          'EACH HAND-OFF IS A STATUS, A DATE AND A NAMED OWNER</text>') % INK3
     return s + FOOT('D')
 
 DIAGRAMS = {'analysis': analysis(), 'enterprise': enterprise(),

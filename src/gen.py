@@ -234,7 +234,7 @@ T.append(tile('dtva','bd_dtva.jpg','Sonora Avenue &middot; Glendale',LG['dtva'],
  vposter='vid/dtva_poster.jpg'))
 
 T.append(tile('tlv','bd_tlv.jpg','Las Vegas &middot; Nevada',LG['tlv'],
- 'Turbo LV','Founder','2025 &mdash; Present',
+ 'TLV','Founder','2025 &mdash; Present',
  'The same discipline, now end to end and under my own name. Setting businesses up legally, keeping their filings current, and handling the signings that have to be witnessed by a commissioned officer.',
  ['Multi-state compliance managed','USPTO trademark filings prepared','Commissioned notary &amp; loan signing agent'],
  None,None,None,
@@ -248,7 +248,7 @@ T.append(tile('tlv','bd_tlv.jpg','Las Vegas &middot; Nevada',LG['tlv'],
   ('g_tlv3.jpg','Remote online notarisation'),
   ('platec','Business filings',[(F+'lg_biz.png','image/png')])],
  logostyle='height:50px;max-width:150px',
- video=U('vid/tlv_reel.mp4','video/mp4'), vlabel='Turbo LV',
+ video=U('vid/tlv_reel.mp4','video/mp4'), vlabel='TLV',
  vposter='vid/tlv_poster.jpg'))
 
 T.append(tile('dbt','bd_cox.jpg','Atlanta &middot; Georgia',LG['cox'],
@@ -282,8 +282,8 @@ T.append(tile('lgd','bd_coke.jpg','North Avenue &middot; Atlanta',LG['coke'],
  video=U('vid/coke_reel.mp4','video/mp4'), vlabel='The Coca-Cola Company',
  vposter='vid/coke_poster.jpg'))
 
-# Turbo LV is his own company, so it opens the section
-_tlv = next(i for i, t in enumerate(T) if 'p-turbo-lv' in t[0])
+# TLV is his own company, so it opens the section
+_tlv = next(i for i, t in enumerate(T) if 'p-tlv' in t[0])
 T.insert(0, T.pop(_tlv))
 DECK_WORK=''.join(t[0] for t in T)
 PANES=''.join(t[1] for t in T)
@@ -610,20 +610,25 @@ BREAK='\n      <span class="deck-break" aria-hidden="true"></span>'
 DECK_EDU=''.join(e[0] for e in E[:3]) + BREAK + ''.join(e[0] for e in E[3:])
 PANES+=''.join(e[1] for e in E)
 
-# ── Projects: three placeholders awaiting content ──
-P=[]
-for c, sid, title, sub in [
-    ('wbd','pj-one',  'Project One',  'Title and summary to come'),
-    ('lgd','pj-two',  'Project Two',  'Title and summary to come'),
-    ('dbt','pj-three','Project Three','Title and summary to come')]:
-    P.append(unit(c, sid, title, sub, 'Placeholder',
-      credbody(['This tile is reserved for a project write-up.',
-                'Replace the heading, the summary and this list with the work itself.',
-                'Add a still, a short loop or a diagram to the tile face.']),
-      badge_txt='PJ', phlabel='Content pending'))
-DECK_PROJECTS=''.join(x[0] for x in P); PANES+=''.join(x[1] for x in P)
+# ── Projects: one wide tile routing to the GitHub profile ──
+# An anchor rather than a button, so the whole face is the link and no pane is
+# needed; the reel is a real screen recording of the profile.
+DECK_PROJECTS = (
+  '\n      <a class="dtile projtile" style="--c:var(--dbt)" '
+  'href="https://github.com/ShamarRobinson" target="_blank" rel="noopener" '
+  'aria-label="GitHub profile (opens in a new tab)">'
+  '<span class="dt-media"><video class="dt-video" autoplay muted loop playsinline '
+  'preload="auto" poster="%s" aria-label="GitHub profile">'
+  '<source src="%s" type="video/mp4"></video></span>'
+  '<span class="dt-scrim"></span><span class="dt-rail"></span>'
+  '<span class="dt-body"><span class="dt-crest">GH</span>'
+  '<span class="dt-title">GitHub</span>'
+  '<span class="dt-sub">Repositories, dashboards and the source for this site</span>'
+  '<span class="cta-link">View profile &#8599;</span></span></a>\n'
+) % (U('vid/gh_poster.jpg','image/jpeg'), U('vid/gh_reel.mp4','video/mp4'))
+P = [1]   # one tile, for the count printed at the end
 
-# -- the organisations the notice refers to; Turbo LV is his own and is not a third party --
+# -- the organisations the notice refers to; TLV is his own and is not a third party --
 REFS_ORGS=[(LG['wbd'],'Warner Bros. Discovery'), (LG['lgd'],'Legendary Entertainment'),
            (LG['dis'],'The Walt Disney Company'), (LG['dtva'],'Disney Television Animation'),
            (LG['cox'],'Cox Media Group'), (LG['coke'],'The Coca-Cola Company')]
