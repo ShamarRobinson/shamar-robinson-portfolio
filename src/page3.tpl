@@ -519,7 +519,7 @@ button.chip{font:inherit;font-family:var(--mono);font-size:11.5px;letter-spacing
 /* The section 01 reels run a quarter brighter. The rule sits on the video
    itself rather than on the tile, so the lift carries over when the element
    moves into an opened pane. Five of the seven are dialled back from there
-   -- 8%, then another 5% -- so only Turbo LV and Legendary hold the full
+   -- 8%, then another 5% -- so only TLV and Legendary hold the full
    quarter. */
 .dt-video{filter:brightness(1.25)}
 .dt-video[aria-label^="Warner Bros. Discovery"],
@@ -1062,6 +1062,24 @@ details[open] summary .cvr{transform:rotate(45deg)}
   background:rgba(190,225,255,.07);border:1px solid var(--hair)}
 .earlier b{color:var(--platinum);font-weight:500}
 /* &#9472;&#9472; footer &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472; */
+/* Projects is one wide tile. It is an anchor rather than a button, so the whole
+   face routes to the profile; the call to action inside it is styling, not a
+   nested button, which an anchor may not contain. */
+#dk-proj .dtile{flex:0 0 100%;min-height:0}
+.projtile,.projtile:hover{text-decoration:none;color:inherit}
+.projtile .dt-title,.projtile .dt-sub{text-decoration:none}
+#dk-proj .dt-media{aspect-ratio:600/376}
+#dk-proj .dt-body{margin-top:-30px}
+.cta-link{display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+  padding:9px 16px;border-radius:999px;align-self:flex-start;
+  background:rgba(8,22,40,.62);border:1px solid rgba(180,232,255,.55);
+  backdrop-filter:blur(8px);
+  box-shadow:0 0 22px -6px rgba(130,205,255,.65),inset 0 1px 0 rgba(255,255,255,.3);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:#fff;transition:all .3s var(--d)}
+.projtile:hover .cta-link,.projtile:focus-visible .cta-link{
+  background:rgba(150,222,255,.30);border-color:#bfe8ff;
+  box-shadow:0 0 30px -4px rgba(150,222,255,.9),inset 0 1px 0 rgba(255,255,255,.5)}
 /* Portrait: the image itself is untouched -- only the frame is styled.
    Corners are eased slightly, with a deep drop shadow for lift and two wide
    cool halos so it reads as lit by the same field as the rest of the page. */
@@ -1469,7 +1487,7 @@ __PANES__
     });
   });
 
-  document.querySelectorAll(".dtile").forEach(function(b){
+  document.querySelectorAll(".dtile[data-pane]").forEach(function(b){
     b.addEventListener("click", function(){ openPane(b.getAttribute("data-pane"), b); });
   });
   if (xbtn) xbtn.addEventListener("click", closePane);
