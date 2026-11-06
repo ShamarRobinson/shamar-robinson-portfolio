@@ -97,10 +97,13 @@ def enterprise():
              'SYSTEMS OF RECORD &#8594; STATEMENT PACKAGE', A)
     for i, (y, name) in enumerate([(52,'SAP'), (82,'PARTICIPATIONS'),
                                    (112,'DOCUMENTS'), (142,'TICKETS')]):
-        s += ('<ellipse cx="52" cy="%d" rx="26" ry="6" fill="%s" opacity=".85"/>'
-              '<rect x="26" y="%d" width="52" height="15" fill="%s" opacity=".42"/>'
-              '<ellipse cx="52" cy="%d" rx="26" ry="6" fill="%s" opacity=".62"/>') % (
-              y-7, A, y-7, A, y+8, A)
+        # solid, with a lighter lid and a darker base so they still read as
+        # cylinders rather than flat pills
+        s += ('<rect x="26" y="%d" width="52" height="15" fill="%s"/>'
+              '<ellipse cx="52" cy="%d" rx="26" ry="6" fill="%s"/>'
+              '<ellipse cx="52" cy="%d" rx="26" ry="6" fill="%s"/>'
+              '<ellipse cx="52" cy="%d" rx="26" ry="6" fill="none" stroke="%s" stroke-width=".8"/>') % (
+              y-7, '#1B5C9E', y+8, '#14477B', y-7, '#3C82C4', y-7, '#5A9BD8')
         s += ('<text x="52" y="%d" text-anchor="middle" font-family="monospace" '
               'font-size="5.6" fill="#FFFFFF">%s</text>') % (y+3, name)
     s += '<text x="26" y="166" font-family="monospace" font-size="7.4" fill="%s">SYSTEMS OF RECORD</text>' % INK3
