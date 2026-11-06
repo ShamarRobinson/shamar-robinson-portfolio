@@ -542,24 +542,22 @@ button.chip{font:inherit;font-family:var(--mono);font-size:11.5px;letter-spacing
    white: on a white panel only the falloff reads. */
 #dk-builds .dt-media .dg,#dk-tools .dt-media .dg{
   transform-origin:50% 45%;will-change:transform,filter;backface-visibility:hidden}
-@keyframes camKen   {from{transform:scale(1.04) translate(2.2%,1.6%)}
-                     to  {transform:scale(1.17) translate(-2.2%,-1.5%)}}
-@keyframes camPush  {from{transform:scale(1.015)} to{transform:scale(1.14)}}
-@keyframes camPan   {from{transform:scale(1.11) translateX(3.4%)}
-                     to  {transform:scale(1.11) translateX(-3.4%)}}
-@keyframes camTilt  {from{transform:scale(1.12) translateY(3.2%)}
-                     to  {transform:scale(1.12) translateY(-3.2%)}}
-@keyframes camPull  {from{transform:scale(1.16)} to{transform:scale(1.02)}}
-@keyframes camRoll  {from{transform:scale(1.13) rotate(-.65deg) translateX(1.2%)}
-                     to  {transform:scale(1.04) rotate(.4deg) translateX(-1%)}}
-@keyframes camRack  {0%  {transform:scale(1.10);filter:blur(2.4px) saturate(.82)}
+@keyframes camKen   {from{transform:scale(1.005) translate(.7%,.5%)}
+                     to  {transform:scale(1.048) translate(-.7%,-.5%)}}
+@keyframes camPush  {from{transform:scale(1.004)} to{transform:scale(1.046)}}
+@keyframes camPan   {from{transform:scale(1.03) translateX(1.1%)}
+                     to  {transform:scale(1.03) translateX(-1.1%)}}
+@keyframes camTilt  {from{transform:scale(1.032) translateY(1.1%)}
+                     to  {transform:scale(1.032) translateY(-1.1%)}}
+@keyframes camPull  {from{transform:scale(1.05)} to{transform:scale(1.004)}}
+@keyframes camRoll  {from{transform:scale(1.045) rotate(-.22deg)}
+                     to  {transform:scale(1.008) rotate(.14deg)}}
+@keyframes camRack  {0%  {transform:scale(1.04);filter:blur(1.6px) saturate(.88)}
                      26% {filter:blur(0) saturate(1)}
-                     100%{transform:scale(1.015);filter:blur(0) saturate(1)}}
-@keyframes camSettle{0%  {transform:scale(1.21) translate(-3.2%,2.6%)}
-                     42% {transform:scale(1.04) translate(.5%,-.4%)}
-                     100%{transform:scale(1.07) translate(0,0)}}
-#dk-builds .dt-media .dg,#dk-tools .dt-media .dg{animation-iteration-count:infinite;
-  animation-direction:alternate;animation-timing-function:cubic-bezier(.42,0,.3,1)}
+                     100%{transform:scale(1.004);filter:blur(0) saturate(1)}}
+@keyframes camSettle{0%  {transform:scale(1.06) translate(-1.1%,.9%)}
+                     42% {transform:scale(1.012) translate(.2%,-.15%)}
+                     100%{transform:scale(1.028) translate(0,0)}}
 #dk-builds .dtile:nth-child(1) .dg{animation-name:camKen;animation-duration:21s}
 #dk-builds .dtile:nth-child(2) .dg{animation-name:camPush;animation-duration:25s}
 #dk-builds .dtile:nth-child(3) .dg{animation-name:camPan;animation-duration:19s}
@@ -1128,7 +1126,10 @@ details[open] summary .cvr{transform:rotate(45deg)}
 /* Projects is one wide tile. It is an anchor rather than a button, so the whole
    face routes to the profile; the call to action inside it is styling, not a
    nested button, which an anchor may not contain. */
-#dk-proj .dtile{flex:0 0 100%;min-height:0}
+/* The reel is a 600px screen recording; held at roughly that width it stays
+   crisp instead of being stretched across the full deck. */
+#dk-proj .deck{justify-content:center}
+#dk-proj .dtile{flex:0 0 min(640px,100%);min-height:0}
 .projtile,.projtile:hover{text-decoration:none;color:inherit}
 .projtile .dt-title,.projtile .dt-sub{text-decoration:none}
 #dk-proj .dt-media{aspect-ratio:600/376}

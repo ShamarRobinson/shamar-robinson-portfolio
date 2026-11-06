@@ -89,20 +89,27 @@ def analysis():
 
 # -------------------------------------------------------------- 2. enterprise
 def enterprise():
+    """Reporting pulls from several systems of record, SAP among them, and
+    lands as one package. The sources are named because that is the point:
+    the work is reconciling them, not querying any single one."""
     A = '#1B5C9E'
-    s = HEAD('Systems of record consolidated into one report', 'B',
-             'SYSTEMS OF RECORD &#8594; ONE REPORT', A)
-    for y in (54, 92, 130):
-        s += ('<ellipse cx="52" cy="%d" rx="26" ry="7" fill="%s" opacity=".85"/>'
-              '<rect x="26" y="%d" width="52" height="19" fill="%s" opacity=".42"/>'
-              '<ellipse cx="52" cy="%d" rx="26" ry="7" fill="%s" opacity=".62"/>') % (
-              y-9, A, y-9, A, y+10, A)
-    s += '<text x="26" y="160" font-family="monospace" font-size="7.6" fill="%s">FOUR PLATFORMS</text>' % INK3
-    for i, p in enumerate(['M80 54 C124 54 132 82 160 96',
-                           'M80 92 C118 92 130 94 160 96',
-                           'M80 130 C124 130 132 110 160 96']):
-        s += '<path d="%s" fill="none" stroke="%s" stroke-width="1.2" stroke-dasharray="3 4"/>' % (p, LINE)
-        s += DOT % (A, 3.0, i*0.55, p, 3.0, i*0.55)
+    s = HEAD('Several systems of record reconciled into one reporting package', 'B',
+             'SYSTEMS OF RECORD &#8594; ONE PACKAGE', A)
+    for i, (y, name) in enumerate([(52,'SAP'), (82,'PARTICIPATIONS'),
+                                   (112,'DOCUMENTS'), (142,'TICKETS')]):
+        s += ('<ellipse cx="52" cy="%d" rx="26" ry="6" fill="%s" opacity=".85"/>'
+              '<rect x="26" y="%d" width="52" height="15" fill="%s" opacity=".42"/>'
+              '<ellipse cx="52" cy="%d" rx="26" ry="6" fill="%s" opacity=".62"/>') % (
+              y-7, A, y-7, A, y+8, A)
+        s += ('<text x="52" y="%d" text-anchor="middle" font-family="monospace" '
+              'font-size="5.6" fill="#FFFFFF">%s</text>') % (y+3, name)
+    s += '<text x="26" y="166" font-family="monospace" font-size="7.4" fill="%s">SYSTEMS OF RECORD</text>' % INK3
+    for i, p2 in enumerate(['M80 52 C122 52 132 80 158 96',
+                            'M80 82 C116 82 130 90 158 96',
+                            'M80 112 C116 112 130 104 158 96',
+                            'M80 142 C122 142 132 114 158 96']):
+        s += '<path d="%s" fill="none" stroke="%s" stroke-width="1.2" stroke-dasharray="3 4"/>' % (p2, LINE)
+        s += DOT % (A, 3.0, i*0.45, p2, 3.0, i*0.45)
     s += ('<circle cx="166" cy="96" r="12" fill="none" stroke="%s" stroke-width="1.6"/>'
           '<circle cx="166" cy="96" r="4.6" fill="%s">'
           '<animate attributeName="r" values="3.6;6;3.6" dur="3.2s" repeatCount="indefinite"/></circle>'
@@ -110,46 +117,63 @@ def enterprise():
           '<animate attributeName="r" values="12;24" dur="3.2s" repeatCount="indefinite"/>'
           '<animate attributeName="opacity" values=".5;0" dur="3.2s" repeatCount="indefinite"/></circle>'
           ) % (INK, A, A)
+    s += '<text x="148" y="124" font-family="monospace" font-size="6.4" fill="%s">RECONCILE</text>' % INK3
     s += '<rect x="214" y="46" width="78" height="96" rx="4" fill="%s" stroke="%s" stroke-width="1.1"/>' % (CARD, LINE)
     for i in range(7):
         w = [52, 42, 58, 36, 54, 28, 46][i]
         s += _cell(226, 62 + i*11, w, 3.2, INK, .30 if i else .55, 1.6)
     s += ('<rect x="226" y="62" width="52" height="3.2" rx="1.6" fill="%s">'
           '<animate attributeName="width" values="6;52" dur="3.2s" repeatCount="indefinite"/></rect>') % A
-    s += '<text x="214" y="158" font-family="monospace" font-size="7.6" fill="%s">QUARTERLY PACKAGE</text>' % INK3
+    s += '<text x="214" y="158" font-family="monospace" font-size="7.4" fill="%s">QUARTERLY PACKAGE</text>' % INK3
     return s + FOOT('B')
 
 # ------------------------------------------------------------------ 3. rights
 def rights():
+    """The chain end to end: a signed agreement is abstracted, the abstract is
+    set up as a record, the record drives a statement, and the statement is what
+    the participant actually receives."""
     A = '#9A6B12'
-    s = HEAD('Agreement abstracted to a rights record, then split to participants', 'C',
-             'AGREEMENT &#8594; RIGHTS &#8594; SPLIT', A)
-    s += '<rect x="24" y="46" width="60" height="80" rx="4" fill="%s" stroke="%s" stroke-width="1.1"/>' % (CARD, LINE)
-    for i in range(6):
-        s += _cell(33, 57 + i*11, [40, 32, 42, 26, 38, 20][i], 3, INK, .38, 1.5)
-    s += ('<circle cx="68" cy="114" r="8.5" fill="none" stroke="%s" stroke-width="2"/>'
-          '<circle cx="68" cy="114" r="3.2" fill="%s"/>') % (A, A)
-    s += '<text x="24" y="142" font-family="monospace" font-size="7.6" fill="%s">SIGNED DEAL</text>' % INK3
-    s += '<rect x="114" y="50" width="74" height="70" rx="4" fill="#FFFFFF" stroke="%s" stroke-width="1.3"/>' % LINE
+    s = HEAD('A signed agreement abstracted, set up as a record, and reported as a statement', 'C',
+             'AGREEMENT &#8594; ABSTRACT &#8594; RECORD &#8594; STATEMENT', A)
+    # the signed agreement
+    s += '<rect x="22" y="52" width="46" height="66" rx="4" fill="%s" stroke="%s" stroke-width="1.1"/>' % (CARD, LINE)
+    for i in range(5):
+        s += _cell(29, 61 + i*11, [32, 24, 34, 20, 28][i], 3, INK, .38, 1.5)
+    s += ('<circle cx="56" cy="108" r="7" fill="none" stroke="%s" stroke-width="1.8"/>'
+          '<circle cx="56" cy="108" r="2.6" fill="%s"/>') % (A, A)
+    s += '<text x="22" y="132" font-family="monospace" font-size="6.6" fill="%s">AGREEMENT</text>' % INK3
+    # the abstract, with the terms picked out
+    s += '<rect x="90" y="52" width="54" height="66" rx="4" fill="#FFFFFF" stroke="%s" stroke-width="1.2"/>' % LINE
     for i in range(4):
-        y = 62 + i*15
-        s += _cell(124, y, 38, 3.2, INK, .34, 1.6)
-        s += ('<rect x="168" y="%s" width="12" height="3.2" rx="1.6" fill="%s">'
+        y = 62 + i*14
+        s += _cell(97, y, 26, 3, INK, .34, 1.5)
+        s += ('<rect x="128" y="%s" width="10" height="3" rx="1.5" fill="%s">'
               '<animate attributeName="opacity" values=".2;1;.2" dur="3.6s" begin="%ss" '
               'repeatCount="indefinite"/></rect>') % (y, A, i*0.4)
-    s += '<text x="114" y="136" font-family="monospace" font-size="7.6" fill="%s">ABSTRACT</text>' % INK3
-    p1 = 'M86 86 L112 86'
-    s += '<path d="%s" fill="none" stroke="%s" stroke-width="1.2" stroke-dasharray="3 4"/>' % (p1, LINE)
-    s += DOT % (A, 2.6, 0, p1, 2.6, 0)
-    for i, p in enumerate(['M190 86 C214 86 218 58 242 58', 'M190 86 L242 86',
-                           'M190 86 C214 86 218 114 242 114']):
-        s += '<path d="%s" fill="none" stroke="%s" stroke-width="1.2" stroke-dasharray="3 4"/>' % (p, LINE)
-        s += DOT % (A, 3.0, 0.9 + i*0.45, p, 3.0, 0.9 + i*0.45)
-    for cy, pct in [(58, '50%'), (86, '30%'), (114, '20%')]:
-        s += ('<circle cx="256" cy="%d" r="11" fill="#FFFFFF" stroke="%s" stroke-width="1.7"/>'
-              '<text x="256" y="%d" text-anchor="middle" font-family="monospace" font-size="8" '
-              'font-weight="700" fill="%s">%s</text>') % (cy, A, cy+3, INK, pct)
-    s += '<text x="228" y="142" font-family="monospace" font-size="7.6" fill="%s">PARTICIPANTS</text>' % INK3
+    s += '<text x="90" y="132" font-family="monospace" font-size="6.6" fill="%s">ABSTRACT</text>' % INK3
+    # the record standing in the system
+    s += '<rect x="166" y="58" width="46" height="54" rx="4" fill="#FFFFFF" stroke="%s" stroke-width="1.2"/>' % LINE
+    s += _cell(166, 58, 46, 10, A, .75, 4)
+    for i in range(4):
+        s += _cell(172, 74 + i*9, [34, 28, 32, 22][i], 3.2, INK, .3, 1.6)
+    s += '<text x="166" y="132" font-family="monospace" font-size="6.6" fill="%s">RECORD</text>' % INK3
+    # the statement produced from it
+    s += '<rect x="232" y="52" width="48" height="66" rx="4" fill="%s" stroke="%s" stroke-width="1.1"/>' % (CARD, LINE)
+    for i in range(5):
+        s += _cell(239, 62 + i*11, [20, 28, 18, 30, 16][i], 3, INK, .32, 1.5)
+        s += _cell(266, 62 + i*11, 8, 3, A, .7, 1.5)
+    s += '<text x="232" y="132" font-family="monospace" font-size="6.6" fill="%s">STATEMENT</text>' % INK3
+    # the links, each carrying its parcel along
+    for i, p2 in enumerate(['M70 86 L88 86', 'M146 86 L164 86', 'M214 86 L230 86']):
+        s += '<path d="%s" fill="none" stroke="%s" stroke-width="1.2" stroke-dasharray="3 4"/>' % (p2, LINE)
+        s += DOT % (A, 2.8, i*0.9, p2, 2.8, i*0.9)
+    # and who it goes to
+    for i, (cy, pct) in enumerate([(62, '50%'), (86, '30%'), (110, '20%')]):
+        s += ('<circle cx="296" cy="%d" r="9.5" fill="#FFFFFF" stroke="%s" stroke-width="1.5"/>'
+              '<text x="296" y="%d" text-anchor="middle" font-family="monospace" font-size="6.6" '
+              'font-weight="700" fill="%s">%s</text>') % (cy, A, cy+2.6, INK, pct)
+    s += '<text x="150" y="152" font-family="monospace" font-size="6.8" fill="%s">' \
+         'THE TERMS DECIDE WHO IS PAID, AND WHEN</text>' % INK3
     return s + FOOT('C')
 
 # ---------------------------------------------------------------- 4. workflow
@@ -218,44 +242,44 @@ DIAGRAMS = {'analysis': analysis(), 'enterprise': enterprise(),
 TEAL, GOLD, GREEN, BLUE = '#0D6F66', '#9A6B12', '#10775A', '#1B5C9E'
 
 def deadlines():
+    """A quarter opens with the same checks every time -- are the agreements in
+    hand, which titles carry term deals, which need cost work -- and closes
+    against due dates the contracts themselves set."""
     A = TEAL
-    s = HEAD('A calendar of dates set by contract, repeating every quarter', 'E',
-             'DATES SET BY CONTRACT', A)
-    s += '<rect x="24" y="44" width="150" height="96" rx="4" fill="#FFFFFF" stroke="%s" stroke-width="1.2"/>' % LINE
-    s += '<rect x="24" y="44" width="150" height="14" rx="4" fill="%s" opacity=".10"/>' % INK
-    for c in range(6):
-        s += '<text x="%d" y="54" text-anchor="middle" font-family="monospace" font-size="6" fill="%s">%s</text>' % (
-             36 + c*24, INK3, ['M','T','W','T','F','S'][c])
-    flags = {(0,4):1, (1,2):0, (2,4):1, (3,0):0, (3,4):1, (4,3):2}
-    for r in range(5):
-        for c in range(6):
-            x, y = 28 + c*24, 62 + r*15
-            k = flags.get((r,c))
-            if k is None:
-                s += _cell(x, y, 18, 11, INK, .07, 2)
-            else:
-                dur, beg = 3.6, (r*6+c)*0.12
-                s += ('<rect x="%d" y="%d" width="18" height="11" rx="2" fill="%s" opacity=".9"/>'
-                      '<rect x="%d" y="%d" width="18" height="11" rx="2" fill="none" stroke="%s" '
-                      'stroke-width="1.4" opacity="0"><animate attributeName="opacity" '
-                      'values="0;1;0" dur="%ss" begin="%ss" repeatCount="indefinite"/></rect>') % (
-                      x, y, A if k else INK2, x, y, A, dur, beg)
-    s += '<text x="24" y="152" font-family="monospace" font-size="7.4" fill="%s">WEEKLY &#183; QUARTERLY</text>' % INK3
-    # the cycle
-    s += ('<path d="M214 60 A34 34 0 1 1 212 60" fill="none" stroke="%s" stroke-width="1.4" '
+    s = HEAD('The quarter-start checks, and the contractual days a statement is due after close', 'E',
+             'QUARTER OPENS &#8594; PRIORITIES SET', A)
+    items = ['AGREEMENTS CONFIRMED', 'TERM DEALS IDENTIFIED',
+             'COST REPORTS RUN', 'PRIORITIES AGREED']
+    for i, t in enumerate(items):
+        y = 52 + i*24
+        s += '<rect x="22" y="%d" width="158" height="19" rx="3.5" fill="#FFFFFF" stroke="%s" stroke-width="1"/>' % (y, LINE)
+        s += ('<rect x="29" y="%d" width="11" height="11" rx="2.6" fill="%s" opacity="0">'
+              '<animate attributeName="opacity" values="0;0;1;1;0" dur="7.2s" begin="%ss" '
+              'keyTimes="0;.04;.12;.92;1" repeatCount="indefinite"/></rect>') % (y+4, A, i*0.9)
+        s += ('<rect x="29" y="%d" width="11" height="11" rx="2.6" fill="none" stroke="%s" stroke-width="1.2"/>') % (y+4, LINE)
+        s += ('<path d="M32 %s l2.4 2.4 l4.4 -4.8" fill="none" stroke="#FFFFFF" stroke-width="1.7" '
+              'stroke-linecap="round" stroke-linejoin="round" opacity="0">'
+              '<animate attributeName="opacity" values="0;0;1;1;0" dur="7.2s" begin="%ss" '
+              'keyTimes="0;.05;.13;.92;1" repeatCount="indefinite"/></path>') % (y+9.6, i*0.9)
+        s += ('<text x="48" y="%d" font-family="monospace" font-size="6.4" fill="%s">%s</text>') % (y+13, INK, t)
+    s += '<text x="22" y="160" font-family="monospace" font-size="7" fill="%s">EVERY QUARTER, IN ORDER</text>' % INK3
+    # the due-date dial: statements fall a set number of days after close
+    s += ('<path d="M250 54 A38 38 0 1 1 248 54" fill="none" stroke="%s" stroke-width="1.3" '
           'stroke-dasharray="4 5"/>') % LINE
-    s += ('<circle r="4" fill="%s"><animateMotion dur="6s" repeatCount="indefinite" '
-          'path="M214 60 A34 34 0 1 1 212 60"/></circle>') % A
-    s += '<polygon points="209,56 219,60 209,64" fill="%s"/>' % A
-    for i, lab in enumerate(['45', '60', '90']):
-        s += ('<rect x="%d" y="122" width="22" height="13" rx="3" fill="%s" opacity=".13"/>'
-              '<text x="%d" y="131" text-anchor="middle" font-family="monospace" font-size="7.4" '
-              'font-weight="700" fill="%s">%s</text>') % (182 + i*26, A, 193 + i*26, INK, lab)
-    s += ('<text x="213" y="94" text-anchor="middle" font-family="monospace" font-size="9" '
-          'font-weight="700" fill="%s">DAYS</text>'
-          '<text x="213" y="105" text-anchor="middle" font-family="monospace" font-size="6.6" '
-          'fill="%s">AFTER CLOSE</text>') % (INK, INK3)
-    s += '<text x="180" y="152" font-family="monospace" font-size="7.4" fill="%s">NON-NEGOTIABLE</text>' % INK3
+    s += ('<circle cx="249" cy="92" r="38" fill="none" stroke="%s" stroke-width="2" '
+          'stroke-dasharray="239" stroke-dashoffset="239" transform="rotate(-90 249 92)">'
+          '<animate attributeName="stroke-dashoffset" values="239;60;60;239" dur="7.2s" '
+          'keyTimes="0;.45;.9;1" repeatCount="indefinite"/></circle>') % A
+    s += ('<text x="249" y="88" text-anchor="middle" font-family="monospace" font-size="10" '
+          'font-weight="700" fill="%s">DAYS</text>') % INK
+    s += ('<text x="249" y="100" text-anchor="middle" font-family="monospace" font-size="6.2" '
+          'fill="%s">AFTER CLOSE</text>') % INK3
+    for i, d in enumerate(['45', '60', '90']):
+        x = 219 + i*30
+        s += ('<rect x="%d" y="138" width="24" height="13" rx="6.5" fill="%s" opacity=".14"/>'
+              '<text x="%d" y="147" text-anchor="middle" font-family="monospace" font-size="7" '
+              'fill="%s">%s</text>') % (x, A, x+12, INK, d)
+    s += '<text x="206" y="166" font-family="monospace" font-size="6.6" fill="%s">SET BY THE CONTRACT</text>' % INK3
     return s + FOOT('E')
 
 def platform():
