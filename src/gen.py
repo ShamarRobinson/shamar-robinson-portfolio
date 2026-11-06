@@ -67,7 +67,9 @@ def tile(c, bd, slate, logo, org, role, term, rhythm, proofs, lead=None, vals=No
          logofull=False,
          video=None, vlabel=None, vsub=None, vposter='vid/poster.jpg', vzoom=False):
     sid=slug(org)
-    h='\n      <article class="tile" style="--c:var(--%s)">'%c
+    # 'photo' marks a tile whose body copy sits over a still, so the pane
+    # stylesheet can hold the scrim up behind the text (see .tile.photo::after)
+    h='\n      <article class="tile%s" style="--c:var(--%s)">'%(' photo' if bd else '',c)
     if bd: h+='\n        <div class="shot" style="background-image:url(%s)"></div>'%U(F+bd)
     h+='\n        <div class="rail"></div>'
     if slate: h+='\n        <div class="slate">%s</div>'%slate
@@ -123,7 +125,7 @@ def ul(*items): return '<ul class="dl">'+''.join('<li>%s</li>'%x for x in items)
 LG={'wbd':U(L+'wbd_color.svg'), 'lgd':U(L+'lgd.svg'),
     'dis':U(L+'disney.svg'), 'dtva':U(L+'dtva.png'),
     'cox':U(L+'coxmg.png'), 'coke':U(L+'cocacola.png'),
-    'tlv':U(L+'turbolv.webp')}
+    'tlv':U(L+'tlv_mark.svg')}
 NW=[('v3/nw_dch.svg','image/webp'),('v3/nw_dxd.svg','image/webp'),
     ('v3/nw_djr.png','image/png'),('v3/nw_dplus.png','image/png')]
 
@@ -234,15 +236,20 @@ T.append(tile('dtva','bd_dtva.jpg','Sonora Avenue &middot; Glendale',LG['dtva'],
  vposter='vid/dtva_poster.jpg'))
 
 T.append(tile('tlv','bd_tlv.jpg','Las Vegas &middot; Nevada',LG['tlv'],
- 'TLV','Founder','2025 &mdash; Present',
- 'The same discipline, now end to end and under my own name. Setting businesses up legally, keeping their filings current, and handling the signings that have to be witnessed by a commissioned officer.',
- ['Multi-state compliance managed','USPTO trademark filings prepared','Commissioned notary &amp; loan signing agent'],
+ 'TLV','Sr. Analyst, Business Analytics','Jul 2025 &mdash; Present',
+ 'Key term tracking and recurring reporting on client agreements, with live dashboards behind the forecasting and funding decisions &mdash; alongside the formation and filing work that keeps those clients compliant.',
+ ['Live dashboards for forecasting &amp; budget-to-actual','AI-assisted extraction, verified against source','Multi-state formation, USPTO filings &amp; notary'],
  None,None,None,
- [('Formation &amp; compliance',ul('Business entity formation and registration across multiple states',
-   'Registered agent service, annual statements of information, license renewals')),
-  ('Identity &amp; marks',ul('Business credit profile setup, including Dun &amp; Bradstreet registration',
-   'End-to-end trademark filing through the US Patent and Trademark Office')),
-  ('Execution',ul('Remote online notarization','Loan signing agent for real estate closings'))],
+ [('Agreements &amp; reporting',ul('Key term tracking across client agreements, and the recurring reporting that follows it',
+   'AI-assisted workflows speed up term extraction and agreement tracking',
+   'Documents are de-identified before any AI-assisted step, and every output is verified against the source document before it is delivered')),
+  ('Dashboards',ul('Live dashboards turning transformed and validated financial and operational data into KPIs and trend reporting',
+   'Supporting cash-flow forecasting, funding prioritisation, budget-to-actual comparison and investment-performance monitoring')),
+  ('Formation &amp; compliance',ul('Business entity formation and registration across multiple states',
+   'Registered agent coordination, state filings and business licence renewals')),
+  ('Profile, marks &amp; execution',ul('Business profiles built, including Dun &amp; Bradstreet registration',
+   'End-to-end trademark filing support through the US Patent and Trademark Office',
+   'Remote online notarisation and loan signing services'))],
  [('g_tlv1.jpg','US Patent &amp; Trademark Office'),
   ('platec','Internal Revenue Service',[(F+'lg_irs.png','image/png')]),
   ('g_tlv3.jpg','Remote online notarisation'),

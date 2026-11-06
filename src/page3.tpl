@@ -840,6 +840,16 @@ body.locked{overflow:hidden}
 .tile::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(100deg,rgba(10,26,46,.92) 14%,rgba(10,26,46,.46) 44%,rgba(10,26,46,.12) 74%,transparent),
     linear-gradient(0deg,rgb(var(--c) / .10),transparent 60%)}
+/* Roles: the still runs under the body copy on the right, where the scrim above
+   fades to nothing -- measured worst-case text contrast there was 3.25:1 (Cox) and
+   4.39:1 (TLV), under the 4.5:1 floor. Lower the still and give the scrim a floor
+   so the backdrop under text stays dark the whole way across; worst case is now
+   6.4:1. The education panes keep their own treatment (text is boxed left there). */
+.pane:not([id^="p-ed-"]) .tile.photo .shot{opacity:.20}
+.pane:not([id^="p-ed-"]) .tile.photo::after{
+  background:linear-gradient(100deg,rgba(10,26,46,.94) 14%,rgba(10,26,46,.70) 44%,
+    rgba(10,26,46,.52) 74%,rgba(10,26,46,.42)),
+    linear-gradient(0deg,rgb(var(--c) / .10),transparent 60%)}
 .tile:hover{transform:translateY(-7px) scale(1.006);border-color:rgb(var(--c) / .80);
   box-shadow:0 48px 96px -34px rgba(2,9,20,.98),0 0 0 1px rgb(var(--c) / .34),
     0 0 70px -16px rgb(var(--c) / .42),inset 0 1px 0 rgba(255,255,255,.34)}

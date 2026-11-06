@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 200" role="img" aria-label="TLV">
+  <g fill="#FFFFFF">
+    <!-- T -->
+    <path d="M24 34 H146 V62 H100 V166 H70 V62 H24 Z"/>
+    <!-- L -->
+    <path d="M176 34 H206 V138 H282 V166 H176 Z"/>
+    <!-- V -->
+    <path d="M300 34 H332 L372 128 L412 34 H444 L388 166 H356 Z"/>
+  </g>
+</svg>

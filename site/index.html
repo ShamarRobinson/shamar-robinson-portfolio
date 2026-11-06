@@ -841,6 +841,16 @@ body.locked{overflow:hidden}
 .tile::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(100deg,rgba(10,26,46,.92) 14%,rgba(10,26,46,.46) 44%,rgba(10,26,46,.12) 74%,transparent),
     linear-gradient(0deg,rgb(var(--c) / .10),transparent 60%)}
+/* Roles: the still runs under the body copy on the right, where the scrim above
+   fades to nothing -- measured worst-case text contrast there was 3.25:1 (Cox) and
+   4.39:1 (TLV), under the 4.5:1 floor. Lower the still and give the scrim a floor
+   so the backdrop under text stays dark the whole way across; worst case is now
+   6.4:1. The education panes keep their own treatment (text is boxed left there). */
+.pane:not([id^="p-ed-"]) .tile.photo .shot{opacity:.20}
+.pane:not([id^="p-ed-"]) .tile.photo::after{
+  background:linear-gradient(100deg,rgba(10,26,46,.94) 14%,rgba(10,26,46,.70) 44%,
+    rgba(10,26,46,.52) 74%,rgba(10,26,46,.42)),
+    linear-gradient(0deg,rgb(var(--c) / .10),transparent 60%)}
 .tile:hover{transform:translateY(-7px) scale(1.006);border-color:rgb(var(--c) / .80);
   box-shadow:0 48px 96px -34px rgba(2,9,20,.98),0 0 0 1px rgb(var(--c) / .34),
     0 0 70px -16px rgb(var(--c) / .42),inset 0 1px 0 rgba(255,255,255,.34)}
@@ -1302,7 +1312,7 @@ details[open] summary .cvr{transform:rotate(45deg)}
   <section id="work">
     <button class="sechead" type="button" aria-expanded="false" aria-controls="dk-work" data-sec="work"><span class="sh-metal"></span><span class="sh-sheen"></span><span class="sh-idx">01</span><span class="sh-title">Roles</span><span class="cta"><span class="cta-t">Click Here</span><span class="cta-i"></span></span></button>
     <div class="deckwrap" id="dk-work" hidden><div class="deck">
-      <button class="dtile" style="--c:var(--tlv)" data-pane="p-tlv" type="button" aria-haspopup="dialog"><span class="dt-media"><video class="dt-video" autoplay muted loop playsinline preload="none" poster="assets/6f17b89c1d64598c.webp" aria-label="TLV showreel"><source data-src="assets/08dc14ff3510ef2d.mp4" type="video/mp4"></video></span><span class="dt-scrim"></span><span class="dt-rail"></span><span class="dt-body"><img decoding="async" class="dt-logo" data-src="assets/270f13dcf05f1534.webp" alt=""><span class="dt-title">TLV</span><span class="dt-sub">Founder</span><span class="dt-term">2025 &mdash; Present</span></span></button>
+      <button class="dtile" style="--c:var(--tlv)" data-pane="p-tlv" type="button" aria-haspopup="dialog"><span class="dt-media"><video class="dt-video" autoplay muted loop playsinline preload="none" poster="assets/3e9c3c654aa74ae8.jpg" aria-label="TLV showreel"><source data-src="assets/d01f4bcbbf604718.mp4" type="video/mp4"></video></span><span class="dt-scrim"></span><span class="dt-rail"></span><span class="dt-body"><img decoding="async" class="dt-logo" data-src="assets/6be66600bf1b2523.svg" alt=""><span class="dt-title">TLV</span><span class="dt-sub">Sr. Analyst, Business Analytics</span><span class="dt-term">Jul 2025 &mdash; Present</span></span></button>
       <button class="dtile" style="--c:var(--wbd)" data-pane="p-warner-bros-discovery" type="button" aria-haspopup="dialog"><span class="dt-media"><video class="dt-video" autoplay muted loop playsinline preload="none" poster="assets/cbe03d9601963bd4.webp" aria-label="Warner Bros. Discovery showreel"><source data-src="assets/04536b6481e3ec4a.mp4" type="video/mp4"></video></span><span class="dt-scrim"></span><span class="dt-rail"></span><span class="dt-body"><img decoding="async" class="dt-logo lfull" data-src="assets/367ddc1d9dc65f8b.svg" alt=""><span class="dt-title">Warner Bros. Discovery</span><span class="dt-sub">Sr. Analyst &mdash; Financial Contracts &amp; Reporting Administration</span><span class="dt-term">Aug 2023 &mdash; Jun 2025</span></span></button>
       <button class="dtile" style="--c:var(--lgd)" data-pane="p-legendary-entertainment" type="button" aria-haspopup="dialog"><span class="dt-media"><video class="dt-video" autoplay muted loop playsinline preload="none" poster="assets/eb454b57eb125749.jpg" aria-label="Legendary Entertainment showreel"><source data-src="assets/4f3debe02df20b83.mp4" type="video/mp4"></video></span><span class="dt-scrim"></span><span class="dt-rail"></span><span class="dt-body"><img decoding="async" class="dt-logo" data-src="assets/f2f6381a64492b06.svg" alt=""><span class="dt-title">Legendary Entertainment</span><span class="dt-sub">Contract Administration Manager &mdash; Business &amp; Legal Affairs</span><span class="dt-term">Jul &mdash; Nov 2022</span></span></button>
       <button class="dtile" style="--c:var(--dbt)" data-pane="p-disney-branded-television" type="button" aria-haspopup="dialog"><span class="dt-media"><video class="dt-video dt-inset" autoplay muted loop playsinline preload="none" poster="assets/71e32dd18e6f4445.webp" aria-label="Disney Channel showreel"><source data-src="assets/65016ae5a8b23215.mp4" type="video/mp4"></video></span><span class="dt-scrim"></span><span class="dt-rail"></span><span class="dt-body"><img decoding="async" class="dt-logo" data-src="assets/214e83d124be65bd.webp" alt=""><span class="dt-title">Disney Branded Television</span><span class="dt-sub">Contract Administrator &mdash; Business &amp; Legal Affairs</span><span class="dt-term">Nov 2021 &mdash; Jul 2022</span></span></button>
@@ -1425,27 +1435,28 @@ details[open] summary .cvr{transform:rotate(45deg)}
     <div class="sheet-scroll" id="sheetscroll">
 
     <div class="pane" id="p-tlv" hidden>
-      <article class="tile" style="--c:var(--tlv)">
+      <article class="tile photo" style="--c:var(--tlv)">
         <div class="shot" style="background-image:url(assets/3291405962a86178.webp)"></div>
         <div class="rail"></div>
         <div class="slate">Las Vegas &middot; Nevada</div>
         <div class="tile-in">
           <div class="pane-media" data-media-for="tlv"></div>
           <div class="tile-top">
-            <img decoding="async" class="logo" style="height:50px;max-width:150px" data-src="assets/270f13dcf05f1534.webp" alt="TLV">
+            <img decoding="async" class="logo" style="height:50px;max-width:150px" data-src="assets/6be66600bf1b2523.svg" alt="TLV">
             <div class="tile-id">
               <h3 class="org">TLV</h3>
-              <p class="role">Founder</p>
+              <p class="role">Sr. Analyst, Business Analytics</p>
             </div>
-            <div class="term">2025 &mdash; Present</div>
+            <div class="term">Jul 2025 &mdash; Present</div>
           </div>
-          <p class="rhythm">The same discipline, now end to end and under my own name. Setting businesses up legally, keeping their filings current, and handling the signings that have to be witnessed by a commissioned officer.</p>
-          <div class="proof"><span class="pf">Multi-state compliance managed</span><span class="pf">USPTO trademark filings prepared</span><span class="pf">Commissioned notary &amp; loan signing agent</span></div>
+          <p class="rhythm">Key term tracking and recurring reporting on client agreements, with live dashboards behind the forecasting and funding decisions &mdash; alongside the formation and filing work that keeps those clients compliant.</p>
+          <div class="proof"><span class="pf">Live dashboards for forecasting &amp; budget-to-actual</span><span class="pf">AI-assisted extraction, verified against source</span><span class="pf">Multi-state formation, USPTO filings &amp; notary</span></div>
           <details><summary><span class="cvr">+</span>Systems, network &amp; signature deliverable</summary>
             <div class="drawer">
-              <div><div class="dk">Formation &amp; compliance</div><ul class="dl"><li>Business entity formation and registration across multiple states</li><li>Registered agent service, annual statements of information, license renewals</li></ul></div>
-              <div><div class="dk">Identity &amp; marks</div><ul class="dl"><li>Business credit profile setup, including Dun &amp; Bradstreet registration</li><li>End-to-end trademark filing through the US Patent and Trademark Office</li></ul></div>
-              <div><div class="dk">Execution</div><ul class="dl"><li>Remote online notarization</li><li>Loan signing agent for real estate closings</li></ul></div>
+              <div><div class="dk">Agreements &amp; reporting</div><ul class="dl"><li>Key term tracking across client agreements, and the recurring reporting that follows it</li><li>AI-assisted workflows speed up term extraction and agreement tracking</li><li>Documents are de-identified before any AI-assisted step, and every output is verified against the source document before it is delivered</li></ul></div>
+              <div><div class="dk">Dashboards</div><ul class="dl"><li>Live dashboards turning transformed and validated financial and operational data into KPIs and trend reporting</li><li>Supporting cash-flow forecasting, funding prioritisation, budget-to-actual comparison and investment-performance monitoring</li></ul></div>
+              <div><div class="dk">Formation &amp; compliance</div><ul class="dl"><li>Business entity formation and registration across multiple states</li><li>Registered agent coordination, state filings and business licence renewals</li></ul></div>
+              <div><div class="dk">Profile, marks &amp; execution</div><ul class="dl"><li>Business profiles built, including Dun &amp; Bradstreet registration</li><li>End-to-end trademark filing support through the US Patent and Trademark Office</li><li>Remote online notarisation and loan signing services</li></ul></div>
             </div>
           </details>
           <div class="gal" style="--n:4">
@@ -1460,7 +1471,7 @@ details[open] summary .cvr{transform:rotate(45deg)}
       </article>
     </div>
     <div class="pane" id="p-warner-bros-discovery" hidden>
-      <article class="tile" style="--c:var(--wbd)">
+      <article class="tile photo" style="--c:var(--wbd)">
         <div class="shot" style="background-image:url(assets/1bdd798566050276.webp)"></div>
         <div class="rail"></div>
         <div class="slate">Warner Bros. Studios &middot; Burbank</div>
@@ -1529,7 +1540,7 @@ details[open] summary .cvr{transform:rotate(45deg)}
       </article>
     </div>
     <div class="pane" id="p-legendary-entertainment" hidden>
-      <article class="tile" style="--c:var(--lgd)">
+      <article class="tile photo" style="--c:var(--lgd)">
         <div class="shot" style="background-image:url(assets/1f5e43dc66df592d.webp)"></div>
         <div class="rail"></div>
         <div class="slate">Legendary &middot; Film &amp; Television</div>
@@ -1602,7 +1613,7 @@ details[open] summary .cvr{transform:rotate(45deg)}
       </article>
     </div>
     <div class="pane" id="p-disney-branded-television" hidden>
-      <article class="tile" style="--c:var(--dbt)">
+      <article class="tile photo" style="--c:var(--dbt)">
         <div class="shot" style="background-image:url(assets/4d3d761dbcc5c58a.webp)"></div>
         <div class="rail"></div>
         <div class="slate">Alameda Avenue &middot; Burbank</div>
@@ -1675,7 +1686,7 @@ details[open] summary .cvr{transform:rotate(45deg)}
       </article>
     </div>
     <div class="pane" id="p-disney-television-animation" hidden>
-      <article class="tile" style="--c:var(--dtva)">
+      <article class="tile photo" style="--c:var(--dtva)">
         <div class="shot" style="background-image:url(assets/bc4cb9e74e0abed6.webp)"></div>
         <div class="rail"></div>
         <div class="slate">Sonora Avenue &middot; Glendale</div>
@@ -1740,7 +1751,7 @@ details[open] summary .cvr{transform:rotate(45deg)}
       </article>
     </div>
     <div class="pane" id="p-cox-media-group" hidden>
-      <article class="tile" style="--c:var(--dbt)">
+      <article class="tile photo" style="--c:var(--dbt)">
         <div class="shot" style="background-image:url(assets/a09887c593620969.webp)"></div>
         <div class="rail"></div>
         <div class="slate">Atlanta &middot; Georgia</div>
@@ -1774,7 +1785,7 @@ details[open] summary .cvr{transform:rotate(45deg)}
       </article>
     </div>
     <div class="pane" id="p-the-coca-cola-company" hidden>
-      <article class="tile" style="--c:var(--lgd)">
+      <article class="tile photo" style="--c:var(--lgd)">
         <div class="shot" style="background-image:url(assets/7adfb878ee9035e4.webp)"></div>
         <div class="rail"></div>
         <div class="slate">North Avenue &middot; Atlanta</div>
