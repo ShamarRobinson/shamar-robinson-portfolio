@@ -480,6 +480,9 @@ button.chip{font:inherit;font-family:var(--mono);font-size:11.5px;letter-spacing
   .sh-metal{animation:none}
   .sheet.sweeping .sweep::before,.sheet.sweeping .pane:not([hidden]),
   .deckwrap:not([hidden]),.cta.blink,.cta.flash,.tube{animation:none}
+  #dk-builds .dt-media .dg,#dk-tools .dt-media .dg,.dgscreen .dg,
+  #dk-builds .dt-media::before,#dk-tools .dt-media::before,
+  #dk-builds .dt-media::after,#dk-tools .dt-media::after{animation:none}
   .dt-media .dt-shot,.dtile[data-pane^="p-ed-"] .dt-shot{transition:none}
   .dtile:hover .dt-media .dt-shot,.dtile:focus-visible .dt-media .dt-shot{transform:scale(1.01)}
 }
@@ -531,6 +534,66 @@ button.chip{font:inherit;font-family:var(--mono);font-size:11.5px;letter-spacing
 /* A still in a tile gets a very slow push so the deck never reads as static.
    It alternates rather than looping, so there is no snap back to the start. */
 .dt-media .dg{display:block;width:100%;height:100%}
+/* ---- screens in motion ---------------------------------------------------
+   The diagrams are untouched: every move here is applied from outside, so the
+   artwork stays exactly as drawn and only the view on it changes. Each tile
+   gets a different move and a different duration, so a deck never pulses in
+   unison -- that synchronicity is what makes looping motion look cheap.
+   The spotlight is built as a travelling darkness rather than a travelling
+   white: on a white panel only the falloff reads. */
+#dk-builds .dt-media .dg,#dk-tools .dt-media .dg{
+  transform-origin:50% 45%;will-change:transform,filter;backface-visibility:hidden}
+@keyframes camKen   {from{transform:scale(1.04) translate(2.2%,1.6%)}
+                     to  {transform:scale(1.17) translate(-2.2%,-1.5%)}}
+@keyframes camPush  {from{transform:scale(1.015)} to{transform:scale(1.14)}}
+@keyframes camPan   {from{transform:scale(1.11) translateX(3.4%)}
+                     to  {transform:scale(1.11) translateX(-3.4%)}}
+@keyframes camTilt  {from{transform:scale(1.12) translateY(3.2%)}
+                     to  {transform:scale(1.12) translateY(-3.2%)}}
+@keyframes camPull  {from{transform:scale(1.16)} to{transform:scale(1.02)}}
+@keyframes camRoll  {from{transform:scale(1.13) rotate(-.65deg) translateX(1.2%)}
+                     to  {transform:scale(1.04) rotate(.4deg) translateX(-1%)}}
+@keyframes camRack  {0%  {transform:scale(1.10);filter:blur(2.4px) saturate(.82)}
+                     26% {filter:blur(0) saturate(1)}
+                     100%{transform:scale(1.015);filter:blur(0) saturate(1)}}
+@keyframes camSettle{0%  {transform:scale(1.21) translate(-3.2%,2.6%)}
+                     42% {transform:scale(1.04) translate(.5%,-.4%)}
+                     100%{transform:scale(1.07) translate(0,0)}}
+#dk-builds .dt-media .dg,#dk-tools .dt-media .dg{animation-iteration-count:infinite;
+  animation-direction:alternate;animation-timing-function:cubic-bezier(.42,0,.3,1)}
+#dk-builds .dtile:nth-child(1) .dg{animation-name:camKen;animation-duration:21s}
+#dk-builds .dtile:nth-child(2) .dg{animation-name:camPush;animation-duration:25s}
+#dk-builds .dtile:nth-child(3) .dg{animation-name:camPan;animation-duration:19s}
+#dk-builds .dtile:nth-child(4) .dg{animation-name:camRoll;animation-duration:27s}
+#dk-tools  .dtile:nth-child(1) .dg{animation-name:camTilt;animation-duration:23s}
+#dk-tools  .dtile:nth-child(2) .dg{animation-name:camPull;animation-duration:20s}
+#dk-tools  .dtile:nth-child(3) .dg{animation-name:camSettle;animation-duration:26s}
+#dk-tools  .dtile:nth-child(4) .dg{animation-name:camRack;animation-duration:18s}
+/* travelling spotlight */
+#dk-builds .dt-media::before,#dk-tools .dt-media::before{
+  content:"";position:absolute;inset:-28%;z-index:2;pointer-events:none;
+  background:radial-gradient(circle at 50% 50%,
+    rgba(255,255,255,.50) 0%,rgba(255,255,255,.14) 22%,
+    rgba(255,255,255,0) 40%,rgba(9,28,48,.13) 62%,rgba(9,28,48,.26) 100%);
+  animation:dgspot 17s ease-in-out infinite}
+@keyframes dgspot{
+  0%  {transform:translate(-22%,-14%) scale(.92)}
+  32% {transform:translate(17%,9%) scale(1.06)}
+  64% {transform:translate(-6%,16%) scale(.97)}
+  100%{transform:translate(-22%,-14%) scale(.92)}}
+#dk-tools .dt-media::before{animation-duration:14s;animation-delay:-5s}
+/* a playhead along the foot of the screen -- motion graphics that never cross
+   the artwork or its labels */
+#dk-builds .dt-media::after,#dk-tools .dt-media::after{
+  content:"";position:absolute;left:0;bottom:0;height:2.5px;width:100%;z-index:3;
+  pointer-events:none;transform-origin:left center;
+  background:linear-gradient(90deg,rgb(var(--c) / .25),rgb(var(--c) / .95));
+  animation:dgplay 9s cubic-bezier(.45,0,.3,1) infinite}
+@keyframes dgplay{0%{transform:scaleX(0);opacity:0}
+  6%{opacity:1}92%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+/* the opened pane gets the gentlest version: it is there to be read */
+.dgscreen .dg{animation:camPush 34s cubic-bezier(.42,0,.3,1) infinite alternate;
+  transform-origin:50% 45%}
 /* an opened tile that has a diagram runs its copy down the left and stands the
    screen on the right, where it holds position while the text scrolls */
 .pane-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,52%);
