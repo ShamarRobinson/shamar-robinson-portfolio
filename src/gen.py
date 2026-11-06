@@ -530,19 +530,24 @@ def tool(m,name,tags_):
 def toolbody(ts): return '\n          <div class="tools">'+''.join(ts)+'\n          </div>'
 
 K=[]
-K.append(unit('wbd','tl-analysis','Analysis &amp; Modelling','Excel, SQL, Python, Tableau','4 platforms',
+K.append(unit('wbd','tl-analysis','Analysis &amp; Modelling','Excel, SQL, Python, Tableau, PostgreSQL','5 platforms',
   toolbody([
     tool(mark('excel.svg',colour=True),'Microsoft Excel',['Power Query','Pivot tables','XLOOKUP / INDEX-MATCH','SUMIFS','Workflow trackers']),
     tool(mark(mono='SQL'),'SQL',['Queries','Joins','Aggregation']),
     tool(mark('python.svg'),'Python',['Scripting','Data wrangling']),
-    tool(mark('tableau.svg'),'Tableau',['Dashboards','Data visualisation'])]),
+    tool(mark('tableau.svg'),'Tableau',['Dashboards','Data visualisation']),
+    tool(mark('postgresql.svg'),'PostgreSQL',['Relational data','Queried directly'])]),
   diagram=DIAGRAMS['analysis'], nobadge=True, screen=True))
-K.append(unit('dbt','tl-enterprise','Enterprise Systems','SAP, Salesforce, Quickbase, PostgreSQL','4 platforms',
+# The systems a participation statement is actually assembled from. The list
+# mirrors the diagram beside it, which is the point: these are the records that
+# have to agree before anything can be reported.
+K.append(unit('dbt','tl-enterprise','Participations Systems','The systems a statement is assembled from','5 systems',
   toolbody([
     tool(mark('sap.svg'),'SAP',['Project Systems','Production cost extracts','Business Objects &mdash; BI layer']),
-    tool(mark('salesforce.svg'),'Salesforce',['System of record','Programming reports']),
-    tool(mark(mono='QB'),'Quickbase',['Account data']),
-    tool(mark('postgresql.svg'),'PostgreSQL',['Relational data'])]),
+    tool(mark(mono='PS'),'Participations system',['Rights records','Statement preparation','Design &amp; testing input']),
+    tool(mark(mono='DM'),'Document management',['Agreements','Abstracts','Issuance &amp; distribution']),
+    tool(mark(mono='JR'),'Ticket tracking',['Abstract lifecycle','Status, dates and owner']),
+    tool(mark('salesforce.svg'),'Salesforce',['Account data','Programme reporting'])]),
   diagram=DIAGRAMS['enterprise'], nobadge=True, screen=True))
 K.append(unit('lgd','tl-rights','Contract &amp; Rights','FilmTrack, Sylvester, Alliant, BLAST','4 platforms',
   toolbody([

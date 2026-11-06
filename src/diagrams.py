@@ -93,8 +93,8 @@ def enterprise():
     lands as one package. The sources are named because that is the point:
     the work is reconciling them, not querying any single one."""
     A = '#1B5C9E'
-    s = HEAD('Several systems of record reconciled into one reporting package', 'B',
-             'SYSTEMS OF RECORD &#8594; ONE PACKAGE', A)
+    s = HEAD('The records a participation statement is assembled from, reconciled into one package', 'B',
+             'SYSTEMS OF RECORD &#8594; STATEMENT PACKAGE', A)
     for i, (y, name) in enumerate([(52,'SAP'), (82,'PARTICIPATIONS'),
                                    (112,'DOCUMENTS'), (142,'TICKETS')]):
         s += ('<ellipse cx="52" cy="%d" rx="26" ry="6" fill="%s" opacity=".85"/>'
@@ -124,7 +124,7 @@ def enterprise():
         s += _cell(226, 62 + i*11, w, 3.2, INK, .30 if i else .55, 1.6)
     s += ('<rect x="226" y="62" width="52" height="3.2" rx="1.6" fill="%s">'
           '<animate attributeName="width" values="6;52" dur="3.2s" repeatCount="indefinite"/></rect>') % A
-    s += '<text x="214" y="158" font-family="monospace" font-size="7.4" fill="%s">QUARTERLY PACKAGE</text>' % INK3
+    s += '<text x="214" y="158" font-family="monospace" font-size="7.4" fill="%s">STATEMENT PACKAGE</text>' % INK3
     return s + FOOT('B')
 
 # ------------------------------------------------------------------ 3. rights
