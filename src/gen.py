@@ -624,7 +624,9 @@ PANES+=''.join(e[1] for e in E)
 
 # ── Projects: one wide tile routing to the GitHub profile ──
 # An anchor rather than a button, so the whole face is the link and no pane is
-# needed; the reel is a real screen recording of the profile.
+# needed. The reel is cut from a real screen recording of the profile, held to
+# the pinned grid alone: the recording scrolled on into the contribution graph
+# and the full Repositories tab, which showed repos that are not pinned.
 DECK_PROJECTS = (
   '\n      <a class="dtile projtile" style="--c:var(--dbt)" '
   'href="https://github.com/ShamarRobinson" target="_blank" rel="noopener" '
@@ -635,7 +637,7 @@ DECK_PROJECTS = (
   '<span class="dt-scrim"></span><span class="dt-rail"></span>'
   '<span class="dt-body"><span class="dt-crest">GH</span>'
   '<span class="dt-title">GitHub</span>'
-  '<span class="dt-sub">Repositories, dashboards and the source for this site</span>'
+  '<span class="dt-sub">Pinned repositories &mdash; live dashboards, an in-browser SQL trainer and analysis tooling</span>'
   '<span class="cta-link">View profile &#8599;</span></span></a>\n'
 ) % (U('vid/gh_poster.jpg','image/jpeg'), U('vid/gh_reel.mp4','video/mp4'))
 P = [1]   # one tile, for the count printed at the end

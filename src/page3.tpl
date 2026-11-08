@@ -1142,7 +1142,7 @@ details[open] summary .cvr{transform:rotate(45deg)}
 #dk-proj .dtile{flex:0 0 min(640px,100%);min-height:0}
 .projtile,.projtile:hover{text-decoration:none;color:inherit}
 .projtile .dt-title,.projtile .dt-sub{text-decoration:none}
-#dk-proj .dt-media{aspect-ratio:600/376}
+#dk-proj .dt-media{aspect-ratio:600/312}
 #dk-proj .dt-body{margin-top:-30px}
 .cta-link{display:inline-flex;align-items:center;gap:8px;margin-top:14px;
   padding:9px 16px;border-radius:999px;align-self:flex-start;
