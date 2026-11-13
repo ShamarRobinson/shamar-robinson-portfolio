@@ -482,6 +482,7 @@ button.chip{font:inherit;font-family:var(--mono);font-size:11.5px;letter-spacing
   #dk-builds .dt-media .dg,#dk-tools .dt-media .dg,.dgscreen .dg,
   #dk-builds .dt-media::before,#dk-tools .dt-media::before,
   #dk-builds .dt-media::after,#dk-tools .dt-media::after{animation:none}
+  #dk-proj .dt-media .ghshot{animation:none}
   .dt-media .dt-shot,.dtile[data-pane^="p-ed-"] .dt-shot{transition:none}
   .dtile:hover .dt-media .dt-shot,.dtile:focus-visible .dt-media .dt-shot{transform:scale(1.01)}
 }
@@ -1143,6 +1144,16 @@ details[open] summary .cvr{transform:rotate(45deg)}
 .projtile,.projtile:hover{text-decoration:none;color:inherit}
 .projtile .dt-title,.projtile .dt-sub{text-decoration:none}
 #dk-proj .dt-media{aspect-ratio:600/312}
+/* The push is run by the browser, not baked into a frame sequence: a transform
+   on the compositor moves by real fractions of a pixel, where a video has to
+   round every frame's crop to a whole one and a move this slow then arrives in
+   steps. ease-in-out plus alternate means it slows to a stop and turns round,
+   so there is no snap and no visible restart. */
+#dk-proj .dt-media .ghshot{width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(1.25);transform-origin:50% 50%;
+  will-change:transform;backface-visibility:hidden;
+  animation:ghGlide 30s cubic-bezier(.42,0,.58,1) infinite alternate}
+@keyframes ghGlide{from{transform:scale(1.004)} to{transform:scale(1.052)}}
 #dk-proj .dt-body{margin-top:-30px}
 .cta-link{display:inline-flex;align-items:center;gap:8px;margin-top:14px;
   padding:9px 16px;border-radius:999px;align-self:flex-start;

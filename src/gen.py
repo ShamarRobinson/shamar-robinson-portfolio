@@ -624,22 +624,27 @@ PANES+=''.join(e[1] for e in E)
 
 # ── Projects: one wide tile routing to the GitHub profile ──
 # An anchor rather than a button, so the whole face is the link and no pane is
-# needed. The reel is cut from a real screen recording of the profile, held to
-# the pinned grid alone: the recording scrolled on into the contribution graph
-# and the full Repositories tab, which showed repos that are not pinned.
+# needed. The face is a still of the profile held to the pinned grid alone: the
+# original recording scrolled on into the contribution graph and the full
+# Repositories tab, which showed repos that are not pinned.
+#
+# A still rather than a reel, because the move here is a slow push and a baked
+# video cannot do one cleanly: every frame's crop lands on a whole pixel, so a
+# push this gentle advances in visible steps. The browser animates a transform
+# on the compositor with sub-pixel precision instead, which is what sections 03
+# and 04 already do with their diagrams. Lossless, since the push magnifies it.
 DECK_PROJECTS = (
   '\n      <a class="dtile projtile" style="--c:var(--dbt)" '
   'href="https://github.com/ShamarRobinson" target="_blank" rel="noopener" '
   'aria-label="GitHub profile (opens in a new tab)">'
-  '<span class="dt-media"><video class="dt-video" autoplay muted loop playsinline '
-  'preload="auto" poster="%s" aria-label="GitHub profile">'
-  '<source src="%s" type="video/mp4"></video></span>'
+  '<span class="dt-media"><img class="ghshot" src="%s" '
+  'alt="GitHub profile, showing five pinned repositories"></span>'
   '<span class="dt-scrim"></span><span class="dt-rail"></span>'
   '<span class="dt-body"><span class="dt-crest">GH</span>'
   '<span class="dt-title">GitHub</span>'
   '<span class="dt-sub">Pinned repositories &mdash; live dashboards, an in-browser SQL trainer and analysis tooling</span>'
   '<span class="cta-link">View profile &#8599;</span></span></a>\n'
-) % (U('vid/gh_poster.jpg','image/jpeg'), U('vid/gh_reel.mp4','video/mp4'))
+) % (U('vid/gh_pinned.webp'),)
 P = [1]   # one tile, for the count printed at the end
 
 # -- the organisations the notice refers to; TLV is his own and is not a third party --
